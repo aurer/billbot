@@ -1,0 +1,121 @@
+body{
+	background: #7fa2af;
+	background: url(/assets/gfx/sky.jpg), #7fa2af;
+	background-attachment: fixed;
+	background-size: cover;
+}
+body, button, input, select, textarea,h1, h2, h3{
+	color: #032531;
+}
+h1{ font-size: 2.9em; }
+h2{ font-size: 2.0em;}
+h3{ font-size: 1.8em; }
+.page{
+	max-width: 60em;
+}
+.login .page{
+	max-width: 40em;
+}
+.login-form{
+	max-width: 25em;
+	margin: 20% auto 0;
+}
+
+a { color: #fff; }
+
+a:hover { color: #000; }
+
+a:focus { color: #ddd; }
+
+hr,
+.bills li{
+	border-color: #000;
+}
+table.bill-details td{
+	padding: .4em 1.5em;
+}
+.bills .title .actions{
+	line-height: 2.4em;
+}
+table.totals td{
+	font-size: 1.4em;
+	padding: .6em 1em;
+}
+.page{
+	margin: 0 auto;
+}
+
+.icon-with-text{
+	background-position: left bottom;
+}
+.icon-with-text:hover{
+	background-position: left;
+}
+.icon-with-text.add{
+	background-position: left 105%;
+}
+form{
+	width: 80%;
+}
+form .field{
+	margin: 0 0 1em;
+	float: left;
+	width: 100%;
+}
+form .field label{
+	color: #000;
+	font-weight: bold;
+	float: left;
+	width: 20%;
+}
+
+form .field .input{
+	float: right;
+	width: 80%;
+}
+
+form .checkbox .input{
+	margin: .2em 0 0;
+}
+
+form.login label{
+	width: auto;
+}
+
+
+.bills .title{
+	padding-right: 10em;
+	position: relative;
+	overflow: hidden;
+}
+.bills .title h3{
+	float: left;
+	margin: .4em 0;
+}
+.bills h4{
+	margin-top: 0;
+}
+.bills .title .actions{
+	position: absolute;
+	font-size: .8em;
+	top: 1em;
+	right: 0;
+	opacity: 0;
+	margin: 0;
+}
+.bills li:hover .actions{
+	opacity: 1;
+}
+
+
+@media (max-width: 40em){
+	form .field label{
+		float: none;
+		width: 100%;
+	}
+
+	form .field .input{
+		float: none;
+		width: 100%;
+	}
+}

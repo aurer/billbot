@@ -1,0 +1,37 @@
+
+// Fonts
+@linkcolor: #00DDFF;
+@linkcolorhover: #fff;
+@linkcolorvisited: darken(#00DDFF, 4%);
+@fontcolor-main: #fff;
+@fontcolor-heading: #fff;
+@fontstack-main: "Helvetica neue", Helvetica, sans-serif;
+@fontstack-headings: "Helvetica neue", Helvetica, sans-serif;
+@errorcolor: #C20;
+
+// Mixins
+.transition (@args) {
+	-webkit-transition: @args;
+	-moz-transition: @args;
+	-o-transition: @args;
+	-ms-transition: @args;
+	transition: @args;
+}
+.linear-gradient (@args) {
+	background: -webkit-linear-gradient(@args);
+	background: -moz-linear-gradient(@args);
+	background: -o-linear-gradient(@args);
+	background: -ms-linear-gradient(@args);
+	background: linear-gradient(@args);
+}
+.box-shadow (@args) {
+	-webkit-box-shadow: @args;
+	box-shadow: @args;
+}
+.rounded (@radius:4px){
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	-ms-border-radius: @radius;
+	-o-border-radius: @radius;
+	border-radius: @radius;
+}

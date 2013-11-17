@@ -1,0 +1,312 @@
+@import url(variables.less);
+@import url(normalise.less);
+
+body{
+	background: #22272B;
+	color: #eee;
+	padding: 0 1em;
+}
+.footer{
+	border-top: 2px solid;
+	margin: 2em 0;
+}
+
+/* Standard Forms ------------ */
+form{
+	width: 100%;
+}
+form input[type=text],
+form input[type=password],
+form input[type=email],
+form input[type=date],
+form input[type=number],
+form textarea{
+	border: none;
+	padding: .3em;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background: rgba(0,0,0,0.3);
+	width: 100%;
+	font-size: 1.2em;
+	.box-shadow(inset 0 2px 4px rgba(0,0,0,.2));
+	color: #fff;
+	-webkit-transition: border .3s;
+}
+form select{
+	width: 100%;
+	background: #22272B;
+	color: #fff;
+	border: 1px solid #222;
+}
+form input[type=submit]{
+	font-weight: bold;
+}
+form input:focus{
+	outline: 1px dotted #fff;
+}
+form input[type=text]:focus,
+form input[type=password]:focus,
+form input[type=email]:focus,
+form input[type=date]:focus,
+form input[type=number]:focus,
+form textarea:focus{
+	background: rgba(0,0,0,0.5);
+}
+
+form .field{
+	margin: 0 0 1em;
+	clear: both;
+}
+form .field label{
+	color: #989EA3;
+	display: block;
+	padding: .3em 0em;
+}
+form .required label:after{
+	content: ' *';
+}
+form .dateselect select{
+	margin-right: 1em;
+}
+form .submit{
+	text-align: right;
+}
+form .checkbox label{
+	display: inline;
+}
+form .checkbox .input{
+	display: inline;
+	margin-left: 1em;
+}
+
+::-webkit-input-placeholder { color: rgba(0, 0,0, 0.4); }
+::-moz-input-placeholder{ color: rgba(0, 0,0, 0.4); }
+input:-moz-input-placeholder{ color: rgba(0, 0,0, 0.4); }
+
+/* Login form ---------------- */
+.login-form{
+	margin: 0 auto;
+}
+form .submit{
+	float: right;
+}
+form.login .register{
+	display: block;
+	float: left;
+	margin-top: .5em;
+	font-weight: bold;
+}
+form.login .error{
+	margin: 0 0 1em 0;
+	text-align: center;
+}
+form.login
+
+::-webkit-input-placeholder { color: #444; font-style: italic; }
+:-moz-placeholder { color: #444; font-style: italic; }
+::-moz-placeholder { color: #444; font-style: italic; }
+:-ms-input-placeholder { color: #444; font-style: italic; }
+
+/* Bills details ---------------- */
+.bills li {
+	margin-bottom: 1.5em;
+	padding-bottom: 2em;
+	border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+}
+.bills li:last-child{
+	border-bottom: none;
+	margin-bottom: 0;
+}
+.bills .title{
+	margin-bottom: .5em;
+	padding-right: 10em;
+	position: relative;
+}
+.bills .title .actions{
+	font-size: .8em;
+	margin: 1em 0 0;
+	display: block;
+	opacity: .4;
+	transition: opacity .2s;
+}
+.bills li:active .actions,
+.bills li:focus .actions,
+.bills li:hover .actions,
+.bills li:hover h4{
+	opacity: 1;
+}
+
+.bills .actions a{ padding-right: 1em; }
+
+.bills .actions i{ 
+	font-size: 1.3em;
+	color: #fff;
+}
+.bills h4{
+	font-style: italic;
+	font-weight: normal;
+	opacity: .7;
+	transition: opacity .2s;
+}
+.bills h4 small{ opacity: .7; }
+
+table.bill-details{
+	border-collapse: collapse;
+	font-size: .9em;
+}
+table.bill-details th{
+	text-align: center;
+	padding: .2em 1em;
+	color: #fff;
+	font-size: .9em;
+	font-weight: normal;
+	color: #fff;
+	opacity: 0;
+	-webkit-transition: opacity .2s;
+}
+table.bills li:hover th{ opacity: 1; }
+table.bill-details td{
+	padding: .4em .8em;
+	text-align: center;
+	border: 1px solid;
+	background: rgba(255, 255, 255, 0.1);
+	position: relative;
+}
+table.totals{
+	width: 100%;
+}
+table.totals th{
+	padding: 5px 10px;
+}
+table.totals td{
+	border: 1px solid #000;
+	font-size: 1.2em;
+	font-weight: bold;
+	padding: .4em .6em;
+	background: rgb(53, 105, 127, 1);
+}
+table.totals td i,
+table.totals td small{
+	opacity: .7;
+	font-style: normal;
+	padding-right: .2em;
+	font-size: .9em;
+}
+table.totals td small{ font-size: .8em; }
+
+table.totals td.weekly_total{
+	background: rgba(53, 105, 127, .25);
+}
+table.totals td.monthly_total{
+	background: rgba(53, 105, 127, .5);
+}
+table.totals td.yearly_total{
+	background: rgba(53, 105, 127, .75);
+}
+table.totals td.grand_total{
+	color: #fff;
+}
+table.totals td.total_per_month{ background: #6C975B; }
+table.totals td.total_per_year{  background: #538A3D; }
+
+.icon{
+	padding-right: 1em;
+}
+h1 .icon{
+	font-size: .9em;
+	float: right;
+	padding: 0 0 0 50px;
+	margin-top: .1em;
+}
+
+/* Buttons ------------------- */
+.btn,
+a.btn{
+	background: #000;
+	padding: 6px .7em;
+	margin: 0;
+	height: auto;
+	border: none;
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 1.2;
+	display: inline-block;
+	.rounded(3px);
+}
+.btn:hover,
+.btn:focus{
+	background: #35697f;
+}
+.btn:active{
+	background: #eee;
+	color: #333;
+}
+input[type=submit].btn:hover,
+.submit .btn:focus{ background: #549900; }
+
+.btn + .btn{
+	margin-left: .5em;
+}
+
+.btn-sub,
+a.btn-sub{
+	color: #ddd;
+	background: desaturate(darken(#35697f, 10%), 20%);
+}
+.btn i.icon-{
+	margin-right: .3em;
+}
+
+/* Helpers ----------------- */
+.error{
+	color: @errorcolor;
+	margin: .5em 0 0;
+	text-transform: uppercase;
+	background: #000;
+	padding: .1em .3em 0;
+	display: inline-block;
+}
+.success{
+	color: #538A00;
+	margin: .5em 0 0;
+}
+p.success{
+	font-weight: bold;
+	padding: .4em 1em;
+	margin: 0 0 1em;
+}
+p.success{
+	border: 1px solid #6AA80C;
+	background: #ECF5DF;
+}
+canvas{
+	position: absolute;
+	top:0;
+	left:0;
+}
+
+.message-page .message{
+	padding-top: 3em;
+	text-align: center;
+}
+
+.page-message{
+  margin: 2em auto;
+  padding: .4em 1em;
+  border-radius: 4px;
+  background: #383E42;
+}
+@media (min-width: 30em){
+	.page-message{
+		background: #222;
+  		background: rgba(0, 0, 0, 0.6);
+  		color: #fff;
+	}
+	.page-message a{
+		color: #00DDFF;
+	}
+}
+@media (min-width: 30em){
+	@import url(medium.less);	
+}

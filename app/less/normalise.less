@@ -1,0 +1,127 @@
+@import url(variables.less);
+
+/*
+HTML5 Boilerplate
+Normalize.css
+*/
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+audio, canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+audio:not([controls]) { display: none; }
+[hidden] { display: none; }
+
+html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+body {
+	margin: 0;
+	font-size: 16px;
+	line-height: 1.231;
+}
+body, button, input, select, textarea {
+	font-family: @fontstack-main; 
+	color: @fontcolor-main;
+}
+
+::-moz-selection { background: #333; color: @linkcolor; text-shadow: none; }
+::selection { background: #333; color: #fff; text-shadow: none; }
+
+/* links
+======================================== */
+a { color: @linkcolor; text-decoration: none; }
+a:visited { font-style:italic }
+a:hover { color: @linkcolorhover; }
+a:focus { outline: thin dotted; }
+a:hover, a:active { outline: 0; }
+
+/* typography
+======================================== */
+abbr[title] { border-bottom: 1px dotted; }
+p{ line-height: 1.625;}
+b, strong { font-weight: bold; }
+blockquote { margin: 1em 40px; }
+dfn { font-style: italic; }
+hr { display: block; height: 1px; border: 0; border-top: 2px solid #fff; margin: 1em 0; padding: 0; }
+ins { background: #ff9; color: #000; text-decoration: none; }
+mark { background: #ff0; color: #000; font-style: italic; font-weight: bold; }
+pre, code, kbd, samp { font-family: monospace, monospace; _font-family: 'courier new', monospace; font-size: 1em; }
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+q { quotes: none; }
+q:before, q:after { content: ""; content: none; }
+small { font-size: 85%; }
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+dd { margin: 0 0 0 40px; }
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+figure { margin: 0; }
+
+/* Headings */
+h1, h2, h3{
+	font-family: @fontstack-headings;
+	color: @fontcolor-heading;
+	font-weight: normal;
+	text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+	margin: 1em 0 .4em;
+}
+h1 a, h2 a, h3 a{ text-shadow: none; }
+h1{ font-size: 2.4em; margin-top: .5em; }
+h2{ font-size: 1.8em;}
+h3{ font-size: 1.5em; }
+
+code{ font-family: Consolas, Monaco, Courier New, Courier, monospace; font-size: 12px; background-color: #f9f9f9;
+    border: 1px solid #D0D0D0; color: #002166; display: block; margin: 14px 0 14px 0; padding: 12px 10px 12px 10px; }
+
+/* forms
+======================================== */
+form { margin: 0; }
+fieldset { border: 0; margin: 0; padding: 0; }
+label { cursor: pointer; }
+legend { border: 0; *margin-left: -7px; padding: 0; }
+button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; }
+button, input { line-height: normal; *overflow: visible; }
+table button, table input { *overflow: auto; }
+button, input[type="button"], input[type="reset"], input[type="submit"] { cursor: pointer; -webkit-appearance: button; }
+input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
+input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
+textarea { overflow: auto; vertical-align: top; resize: vertical; }
+input:valid, textarea:valid {  }
+input:invalid, textarea:invalid { background-color: #f0dddd; }
+
+/* tables
+======================================== */
+table { border-collapse: collapse; border-spacing: 0; }
+td { vertical-align: top; }
+table.layout{
+	width: 100%;
+}
+table.layout td,
+table.layout th{
+	border: none;
+	padding: 5px;
+	text-align: left;
+}
+
+
+/* non-semantic helper classes
+======================================== */
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; }
+.ir br { display: none; }
+.hidden { display: none !important; visibility: hidden; }
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+.invisible { visibility: hidden; }
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+.reset{ margin: 0; padding: 0; text-decoration: none; list-style: none; }
+.reset li { list-style: none; }
+.left { float: left; }
+.right { float: right; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.hide { display: none; }
+.hide-override { display: none !important; }
+.highlight { background: #ffff99; }

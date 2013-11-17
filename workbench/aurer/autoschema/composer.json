@@ -1,0 +1,23 @@
+{
+    "name": "aurer/autoschema",
+    "description": "",
+    "authors": [
+        {
+            "name": "aurer",
+            "email": "phil@aurer.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.*"
+    },
+    "autoload": {
+        "classmap": [
+            "src/migrations"
+        ],
+        "psr-0": {
+            "Aurer\\Autoschema\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

@@ -173,10 +173,10 @@ class UserController extends BaseController
 			$user->active = true;
 			$user->password = Hash::make( Input::get('password') );
 			$user->save();
-			Auth::login($user->id);
-			return Redirect::to('user/reset_complete');
+			Auth::login($user);
+			return Redirect::to('user/reset-complete');
 		}
-		return Redirect( Request::path() )->with('error', "Sorry but your reset token is invalid or has expired, please try again.");
+		return Redirect::to( Request::path() )->with('error', "Sorry but your reset token is invalid or has expired, please try again.");
 	}
 
 	public function get_remove()

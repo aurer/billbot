@@ -15,7 +15,7 @@
 				<hr style="border:none; border-top: 1px solid #333">
 				@yield('foot')
 				<p>Regards</p>
-				<p><a href="http://billbot.aurer.co.uk">Billbot</a> <small>Your friendly bill based robot</small></p>
+				<p><a href="http://billbot.aurer.co.uk">Billbot</a></p>
 			</td></tr></table>
 		</td>
 	</tr></table>

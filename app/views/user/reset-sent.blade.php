@@ -5,7 +5,7 @@
 @section('primary')
 	<p>We sent you an email to confirm your email address.</p>
 	<p><b>Please copy the provided key and paste it into the box below</b> or click the link in the email.</p>
-	<form action="/user/reset_confirm">
+	<form action="/user/reset-confirm">
 		<div class="field required">
 			{{ Form::label('hash', "Reference") }}
 			<div class="input">

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1.0">
-	<title>{{ Config::get('application.name') }} / @yield('pagetitle')</title>
+	<title>{{ Config::get('app.name') }} / @yield('pagetitle')</title>
 	{{ HTML::style('assets/css/main.css'); }}
 	{{ HTML::style('assets/plugins/font-awesome/css/font-awesome.min.css'); }}
 	@yield('head')

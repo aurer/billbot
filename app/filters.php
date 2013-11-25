@@ -13,7 +13,42 @@
 
 App::before(function($request)
 {
-	//
+	// Paths allowed without login
+	$allowed = array(
+		'test',
+		'login',
+		'user/join',
+		'user/reset*',
+	);
+
+	// Login action
+	if( Input::get('__username') && Input::get('__password') ){
+		if ( !Auth::attempt(array('username' => Input::get('__username'), 'password' => Input::get('__password') ) ) ){
+			Session::flash('login-message', 'Sorry that login was not recognised');
+			Input::flash('only', array('__username'));
+		}
+		return Redirect::to( Request::path() );
+	}
+
+	// Logout action
+	if( Input::get('logout') == 'true' ){
+		Auth::logout();
+		return Redirect::to( Request::path() );
+	}
+
+	// Allow the allowed URLS through
+	foreach ($allowed as $uri) {
+		if( Request::is($uri) ){
+			return;
+		}
+	}
+
+	// Otherwise check user is logged in
+	if ( !Auth::check() ) {
+		return View::make('login.index');
+	} else {
+		Redirect::intended('/');
+	}
 });
 
 

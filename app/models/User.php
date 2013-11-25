@@ -49,4 +49,40 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	public function bills()
+	{
+		return $this->hasMany('Bill');
+	}
+
+	public static function withBillsToday()
+	{
+		$all_users = DB::table('users')->get();
+		$users_to_notify = array();
+
+		foreach ($all_users as $key=>$user) {
+
+			// Add an urgent bills array to the user
+			$user->urgent_bills = array();
+
+			// Find available bills for the user
+			$all_user_bills = DB::table('bills')->whereUserId($user->id)->whereSendReminder(true)->get();
+			
+			// Sort bills by due date and add 'due_in'
+			$bills = Bill::sort_bills_by_date($all_user_bills);
+			
+			// Loop over the users bills and find any urgent ones
+			foreach ($bills as $bill) {
+				if($bill->due_in == 0 || $bill->due_in - $bill->reminder < 1){
+					array_push($user->urgent_bills, $bill);
+				}
+			}
+
+			// Add user to array if they have urgent bills
+			if( count($user->urgent_bills) > 0 ){
+				array_push($users_to_notify, $user);
+			}
+		}
+
+		return $users_to_notify;
+	}
 }

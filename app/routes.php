@@ -11,7 +11,14 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('/', function(){
+	return Redirect::to('bills');
+});
+
+Route::controller('bills', 'BillsController');
+Route::controller('user', 'UserController');
+Route::controller('emails', 'EmailsController');
+
+Route::any('login', function(){
+	return View::make('login.index');
 });

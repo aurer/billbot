@@ -43,7 +43,6 @@ class BillsController extends BaseController
 
 	public function post_new()
 	{
-		
 		Validator::extend('unique_bill_title', function($attribute, $value, $parameters)
 		{
 		    return !Bill::whereUser_id(Auth::user()->id)->whereName( Str::slug($value) )->first();
@@ -72,7 +71,7 @@ class BillsController extends BaseController
 		}
 		$bill->send_reminder = Input::get('send_reminder') ? true : false;
 		$bill->include_in_totals = true;
-		$bill->reminder = Input::get('reminder');
+		$bill->reminder = Input::get('reminder') ? true : false;
 		$bill->comments = Input::get('comments');
 		$bill->save();
 		

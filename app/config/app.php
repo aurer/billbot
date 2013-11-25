@@ -2,6 +2,7 @@
 
 return array(
 
+	'name' => 'Billbot',
 	/*
 	|--------------------------------------------------------------------------
 	| Application Debug Mode
@@ -113,7 +114,8 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
+		'Zizaco\Lessy\LessyServiceProvider',
+		'Aurer\Autoschema\AutoschemaServiceProvider',
 	),
 
 	/*
@@ -178,7 +180,7 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-
+		'Autoschema'	  => 'Aurer\Autoschema\Autoschema',
 	),
 
 );

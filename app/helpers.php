@@ -46,39 +46,52 @@ Form::macro('dateselect', function($name, $value=null) {
 	return $str;
 });
 
+/*
+	Date a date and format and return it so it can be shown as an upcoming date
+
+	e.g Weekly, 2 would result in Tuesday 26th (or whatever the date of the next tuesday is)
+*/
 function renewal_date_for_display($type, $date) {
 	
 	$to_format['weekly'] 	= 'l jS';
 	$to_format['monthly'] 	= 'jS M';
 	$to_format['yearly'] 	= 'jS M Y';
 
-	$from_format['weekly'] 	= 'd-M-Y';
-	$from_format['monthly'] = 'd';
-	$from_format['yearly'] 	= 'z';
-
-	$interval['weekly'] 	= 'P7D';
-	$interval['monthly'] 	= 'P1M';
-	$interval['yearly'] 	= 'P1Y';
-
-	if($type==='weekly'){
-		$day = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-		$date = date('d-M-Y', strtotime($day[$date]));
-	}	
-
-	$datetime = DateTime::createFromFormat($from_format[$type], $date);
-
-	if( $datetime->format('Y-m-d') < date('Y-m-d') ) {
-		$datetime->add( new DateInterval($interval[$type]) );
-	}
-	return $datetime->format($to_format[$type]);
+	return billbot_date_format($type, $date, $to_format);
 }
 
-function renewal_date_for_input($type, $date) {
+/*
+	Date a date and format and return it so it can be shown in a form
+
+	e.g Weekly, 2 would result in Tuesday
+*/
+function renewal_date_for_form($type, $date) {
 	
 	$to_format['weekly'] 	= 'l';
 	$to_format['monthly'] 	= 'jS';
 	$to_format['yearly'] 	= 'jS M';
 
+	return billbot_date_format($type, $date, $to_format);
+}
+
+/*
+	Date a date and format and return it so it can be inserted into the DB
+
+	e.g Weekly, tuesday would result in 2
+*/
+function renewal_date_for_insert($type, $date) {
+	
+	$to_format['weekly'] 	= 'N';
+	$to_format['monthly'] 	= 'j';
+	$to_format['yearly'] 	= 'z';
+
+	return billbot_date_format($type, $date, $to_format);
+}
+
+/*
+	Sanitise and convert a date to output in the desired format
+*/
+function billbot_date_format($type, $date, array $to_format){
 	$from_format['weekly'] 	= 'd-M-Y';
 	$from_format['monthly'] = 'd';
 	$from_format['yearly'] 	= 'z';
@@ -88,9 +101,17 @@ function renewal_date_for_input($type, $date) {
 	$interval['yearly'] 	= 'P1Y';
 
 	if($type==='weekly'){
-		$day = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
-		$date = date('d-M-Y', strtotime($day[$date]));
-	}	
+		$days = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
+		if( !is_numeric($date) ){
+			if( !in_array(strtolower($date), $days)	){
+				return false;
+			}
+			$date = idate('w', strtotime($date));
+		}
+		$date = date('d-M-Y', strtotime($days[strtolower($date)]));
+	} else {
+		$date = str_ireplace(range('a', 'z'), '', $date); // Remove any a-z characters from string e.g from '3rd' or '4th'
+	}
 
 	$datetime = DateTime::createFromFormat($from_format[$type], $date);
 

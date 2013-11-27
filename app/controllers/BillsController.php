@@ -62,13 +62,7 @@ class BillsController extends BaseController
 		$bill->name = Str::slug( Input::get('title') );
 		$bill->amount = Input::get('amount');
 		$bill->recurrence = Input::get('recurrence');
-		if( Input::get('recurrence') === 'weekly' ){
-			$bill->renews_on = date('N', strtotime( Input::get('renews_on') ) );
-		} elseif( Input::get('recurrence') === 'monthly' ) {
-			$bill->renews_on = date('d', strtotime( Input::get('renews_on') ) );
-		} else {
-			$bill->renews_on = date('z', strtotime( Input::get('renews_on') ) );
-		}
+		$bill->renews_on = renewal_date_for_insert(Input::get('recurrence'), Input::get('renews_on'));
 		$bill->send_reminder = Input::get('send_reminder') ? true : false;
 		$bill->include_in_totals = true;
 		$bill->reminder = Input::get('reminder') ? true : false;
@@ -111,13 +105,7 @@ class BillsController extends BaseController
 		$bill->name = Str::slug( Input::get('title') );
 		$bill->amount = Input::get('amount');
 		$bill->recurrence = Input::get('recurrence');
-		if( Input::get('recurrence') === 'weekly'){
-			$bill->renews_on = date('w', strtotime( Input::get('renews_on') ) );
-		} elseif( Input::get('recurrence') === 'monthly' ) {
-			$bill->renews_on = date('d', strtotime( Input::get('renews_on') . " " . date('F') ) );
-		} else {
-			$bill->renews_on = date('z', strtotime( Input::get('renews_on') ) );
-		}
+		$bill->renews_on = renewal_date_for_insert(Input::get('recurrence'), Input::get('renews_on'));
 		$bill->send_reminder = Input::get('send_reminder') ? true : false;
 		$bill->include_in_totals = Input::get('include_in_totals') ? true : false;
 		$bill->reminder = Input::get('reminder');

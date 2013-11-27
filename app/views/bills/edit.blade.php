@@ -33,7 +33,7 @@
 		<div class="field required">
 			{{ Form::label('renews_on', 'Renews on') }}
 			<div class="input">
-				{{ Form::text('renews_on', renewal_date_for_input(Input::old('recurrence', $bill->recurrence), Input::get('renews_on', $bill->renews_on)) ) }}
+				{{ Form::text('renews_on', renewal_date_for_form(Input::old('recurrence', $bill->recurrence), Input::get('renews_on', $bill->renews_on)) ) }}
 			</div>
 			{{ $errors->has('renews_on') ? $errors->first('amount', '<p class="error">:message</p>') : '' }}
 		</div>

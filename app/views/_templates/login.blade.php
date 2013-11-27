@@ -8,12 +8,10 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/jquery-1.8.0.min.js"></script>
+	{{ HTML::script('assets/plugins/jquery/jquery-1.8.0.min.js'); }}
 	<script>
 		$(function(){
-			
 			if( 'placeholder' in $('input')[0] ){
-				console.log('test');
 				$('input[type=text], input[type=password]').each(function(){
 					var input = $(this), 
 						label = $(this).prev('label');

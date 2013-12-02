@@ -33,7 +33,7 @@
 		<div class="field required">
 			{{ Form::label('renews_on', 'Renews on') }}
 			<div class="input">
-				{{ Form::text('renews_on', renewal_date_for_form(Input::old('recurrence', $bill->recurrence), Input::get('renews_on', $bill->renews_on)) ) }}
+				{{ Form::text('renews_on', Input::old('renews_on', $bill->renews_on) ) }}
 			</div>
 			{{ $errors->has('renews_on') ? $errors->first('amount', '<p class="error">:message</p>') : '' }}
 		</div>
@@ -78,6 +78,11 @@
 	
 @stop
 
+@section('head')
+	{{ HTML::style('assets/plugins/jquery-ui-1.10.3.custom/css/ui-darkness/jquery-ui-1.10.3.custom.min.css') }}
+@stop
+
 @section('scripts')
+	{{ HTML::script('assets/plugins/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js') }}
 	{{ HTML::script('assets/js/bill-forms.js') }}
 @stop

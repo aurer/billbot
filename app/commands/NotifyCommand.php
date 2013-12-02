@@ -18,7 +18,7 @@ class NotifyCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Notifies users of impending bills.';
+	protected $description = 'Notifies users of upcoming bills.';
 
 	/**
 	 * Create a new command instance.
@@ -38,10 +38,10 @@ class NotifyCommand extends Command {
 	public function fire()
 	{
 		$users = User::withBillsToday();
-		$this->info( 'Found ' . count($users) . ' users with urgent bills.' );
+		$this->info( 'Found ' . count($users) . ' users with upcoming bills.' );
 
 		foreach ($users as $user) {
-			$this->info('Sending email to ' . $user->email);
+			$this->info('Sending email to ' . $user->email . ' who has ' . count($user->bills) . ' upcoming bills.');
 			Mail::send(array('emails.reminder_html', 'emails.reminder_plain'), array('user' => $user), function($message) use ($user) {
 				$message->to($user->email);
 				$message->from('reminders@billbot.aurer.co.uk', 'Billbot');

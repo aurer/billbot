@@ -2,7 +2,7 @@ Hi {{ $user->forename != '' ? $user->forename : $user->username }},
 
 You have some upcoming bills:
 
-@foreach($user->urgent_bills as $bill)
+@foreach($user->bills as $bill)
 ------------------
 
 {{ $bill->title }}

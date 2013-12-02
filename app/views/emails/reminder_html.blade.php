@@ -3,7 +3,7 @@
 @section('primary')
 	<h2>You have some upcoming bills</h2>
 	<hr style="border:none; border-top: 1px solid #333">
-	@foreach($user->urgent_bills as $bill)
+	@foreach($user->bills as $bill)
 		<h3>{{ $bill->title }}</h3>
 		<h4>
 			Due {{ $bill->due_in == 0 ? 'today' : 'in ' . $bill->due_in . ' days' }}

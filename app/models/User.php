@@ -62,7 +62,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		foreach ($all_users as $key=>$user) {
 
 			// Add an urgent bills array to the user
-			$user->urgent_bills = array();
+			$user->bills = array();
 
 			// Find available bills for the user
 			$all_user_bills = DB::table('bills')->whereUserId($user->id)->whereSendReminder(true)->get();
@@ -73,12 +73,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			// Loop over the users bills and find any urgent ones
 			foreach ($bills as $bill) {
 				if($bill->due_in == 0 || $bill->due_in - $bill->reminder < 1){
-					array_push($user->urgent_bills, $bill);
+					array_push($user->bills, $bill);
 				}
 			}
 
 			// Add user to array if they have urgent bills
-			if( count($user->urgent_bills) > 0 ){
+			if( count($user->bills) > 0 ){
 				array_push($users_to_notify, $user);
 			}
 		}

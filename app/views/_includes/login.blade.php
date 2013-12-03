@@ -1,11 +1,11 @@
 @if( !Auth::check() )
 	<form action="" class="login clearfix" method="post">
 		<div class="field required clearfix">
-			{{ Form::label('__username', 'Username') }}
+			{{ Form::label('__username', 'username') }}
 			{{ Form::input('text', '__username', Input::old('__username')) }}
 		</div>
 		<div class="field required clearfix">
-			{{ Form::label('__password', 'Password') }}
+			{{ Form::label('__password', 'password') }}
 			{{ Form::password('__password') }}
 		</div>
 		@if( Session::get('login-message') )

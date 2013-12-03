@@ -29,7 +29,10 @@ class AutoschemaServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app['autoschema'] = $this->app->share(function($app)
+		{
+			return new Autoschema;
+		});
 	}
 
 	/**

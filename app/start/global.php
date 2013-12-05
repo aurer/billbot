@@ -51,7 +51,41 @@ Log::useDailyFiles(storage_path().'/logs/'.$logFile);
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
+	$statuses = array(
+		400 => 'Bad request',
+		401 => 'Unauthorised',
+		403 => 'Forbidden',
+		404 => 'Not found',
+		500 => 'Internal server error',
+		503 => 'Service unavailable',
+	);
+	$messages = array(
+		400 => 'The request cannot be fulfilled due to bad syntax.',
+		401 => 'Authentication is required and has failed or has not yet been provided.',
+		403 => 'You do not have permission to access this resource.',
+		404 => 'The page you were looking for could not be found.',
+		500 => 'An unexpected condition was encountered.',
+		503 => 'The server is currently unavailable because it is overloaded or down for maintenance.',
+	);
+	return Response::view('errors.error', array(
+		'code' => $code,
+		'status' => array_key_exists($code, $statuses) ? $statuses[$code] : '',
+		'message' => array_key_exists($code, $messages) ? $messages[$code] : '',
+		'exception' => $exception,
+	), $code);
 });
+
+/*
+App::missing(function($exception)
+{
+	return View::make('errors.error')->with( array(
+		'exception' => $exception,
+		'code' => 404,
+	));
+});
+*/
+
+
 
 /*
 |--------------------------------------------------------------------------

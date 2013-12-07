@@ -9,6 +9,10 @@ class BillsController extends BaseController
 	    'renews_on' => 'required',
 	);
 
+
+	/*
+		Show all bills for the user
+	*/
 	public function get_index()
 	{
 		$data['bills'] 						= Auth::user()->bills()->get();
@@ -36,11 +40,18 @@ class BillsController extends BaseController
 		return View::make('bills.index')->with($data);
 	}
 
+	/*
+		Show a form to create a new bill
+	*/
 	public function get_new()
 	{
 		return View::make('bills.new');
 	}
 
+
+	/*
+		Create a new bill
+	*/
 	public function post_new()
 	{
 		Validator::extend('unique_bill_title', function($attribute, $value, $parameters)
@@ -53,7 +64,7 @@ class BillsController extends BaseController
 		$validation = Validator::make($input, self::$validation_rules);
 		if( $validation->fails() ){
 			Input::flash();
-			return Redirect::to( URI::current() )->with_errors($validation);
+			return Redirect::to( Request::path() )->withErrors($validation);
 		}
 
 		$bill = new Bill;
@@ -72,6 +83,10 @@ class BillsController extends BaseController
 		return Redirect::to( 'bills' );
 	}
 
+
+	/*
+		Remove a bill
+	*/
 	public function get_delete($id)
 	{
 		$bill = Bill::whereId($id)->first();
@@ -81,6 +96,9 @@ class BillsController extends BaseController
 		return Redirect::back();
 	}
 
+	/*
+		Show a form to edit a bill
+	*/
 	public function get_edit($name=null)
 	{
 		$data = Auth::user()->bills()->whereName($name)->first();
@@ -88,6 +106,9 @@ class BillsController extends BaseController
 		return View::make('bills.edit')->with('bill', $data);
 	}
 
+	/*
+		Update a bill
+	*/
 	public function post_edit($name)
 	{
 		$bill = Auth::user()->bills()->whereName($name)->first();
@@ -98,7 +119,7 @@ class BillsController extends BaseController
 		$validation = Validator::make($input, self::$validation_rules);
 		if( $validation->fails() ){
 			Input::flash();
-			return Redirect::to( URI::current() )->with_errors($validation);
+			return Redirect::to( Request::path() )->withErrors($validation);
 		}
 
 		$bill->title = Input::get('title');

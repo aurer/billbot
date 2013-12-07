@@ -1,5 +1,6 @@
 @import url(variables.less);
 @import url(normalise.less);
+@import url(forms.less);
 
 body{
 	background: #22272B;
@@ -9,92 +10,6 @@ body{
 .footer{
 	border-top: 2px solid;
 	margin: 2em 0;
-}
-
-/* Standard Forms ------------ */
-form{
-	width: 100%;
-}
-form input[type=text],
-form input[type=password],
-form input[type=email],
-form input[type=date],
-form input[type=number],
-form textarea{
-	border: none;
-	padding: .3em;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	background: rgba(0,0,0,0.3);
-	width: 100%;
-	font-size: 1.2em;
-	.box-shadow(inset 0 2px 4px rgba(0,0,0,.2));
-	color: #fff;
-	-webkit-transition: border .3s;
-}
-form select{
-	width: 100%;
-	background: #22272B;
-	color: #fff;
-	border: 1px solid #222;
-}
-form input[type=submit]{
-	font-weight: bold;
-}
-form input:focus{
-	outline: 1px dotted #fff;
-}
-form input[type=text]:focus,
-form input[type=password]:focus,
-form input[type=email]:focus,
-form input[type=date]:focus,
-form input[type=number]:focus,
-form textarea:focus{
-	background: rgba(0,0,0,0.5);
-}
-
-form .field{
-	margin: 0 0 1em;
-	clear: both;
-}
-form .field label{
-	color: #989EA3;
-	display: block;
-	padding: .3em 0em;
-}
-form .required label:after{
-	content: ' *';
-}
-form .dateselect select{
-	margin-right: 1em;
-}
-form .submit{
-	text-align: right;
-}
-form .checkbox label{
-	display: inline;
-}
-form .checkbox .input{
-	display: inline;
-	margin-left: 1em;
-}
-
-::-webkit-input-placeholder { color: rgba(0, 0,0, 0.4); }
-::-moz-input-placeholder{ color: rgba(0, 0,0, 0.4); }
-input:-moz-input-placeholder{ color: rgba(0, 0,0, 0.4); }
-
-/* Login form ---------------- */
-.login-form{
-	margin: 0 auto;
-}
-form .submit{
-	float: right;
-}
-form.login .register{
-	display: block;
-	float: left;
-	margin-top: .5em;
-	font-weight: bold;
 }
 
 /* Bills details ---------------- */
@@ -251,10 +166,11 @@ a.btn-sub{
 /* Helpers ----------------- */
 .error{
 	margin: .5em 0 0;
-	padding: .3em .8em;
+	padding: .2em .8em;
 	.rounded(3px);
 	background: #AD5108;
 	color: #fff;
+	font-size: .9em;
 }
 .success{
 	color: #538A00;

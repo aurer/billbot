@@ -1,17 +1,23 @@
 $(function(){
 
-	$('input[name=renews_on]').datepicker();
+	$( "input[name=renews_on]" ).datepicker({
+		dateFormat: datepickerFormat()
+	});
 
-	$( "#recurrence" ).change(setDatepickerFormat);
-
-	setDatepickerFormat();
+	$( "#recurrence" ).change(updateDatepickerFormat);
 });
 
-function setDatepickerFormat(){
-	var type = $( "#recurrence" ).val(), 
-		formats = [];
+function updateDatepickerFormat(){
+	$( "input[name=renews_on]" ).datepicker( "option", "dateFormat", datepickerFormat() );
+}
+
+function datepickerFormat(){
+	var type = $( "#recurrence" ).val();
+	var	formats = [];
+
 	formats['monthly'] = 'dd';
 	formats['yearly'] = 'dd MM';
 	formats['weekly'] = 'DD';
-	$( "input[name=renews_on]" ).datepicker( "option", "dateFormat", formats[type] );
+
+	return formats[type];
 }

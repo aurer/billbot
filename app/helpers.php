@@ -51,13 +51,13 @@ Form::macro('dateselect', function($name, $value=null) {
 
 	e.g Weekly, 2 would result in Tuesday 26th (or whatever the date of the next tuesday is)
 */
-function renewal_date_for_display($type, $date) {
+function renewal_date_for_display($type, $date, $from_format = array()) {
 	
 	$to_format['weekly'] 	= 'l jS';
-	$to_format['monthly'] 	= 'jS M';
-	$to_format['yearly'] 	= 'jS M Y';
+	$to_format['monthly'] 	= 'js F';
+	$to_format['yearly'] 	= 'js F';
 
-	return billbot_date_format($type, $date, $to_format);
+	return billbot_date_format($type, $date, $to_format, $from_format);
 }
 
 /*
@@ -65,13 +65,13 @@ function renewal_date_for_display($type, $date) {
 
 	e.g Weekly, 2 would result in Tuesday
 */
-function renewal_date_for_form($type, $date) {
+function renewal_date_for_form($type, $date, $from_format = array()) {
 	
 	$to_format['weekly'] 	= 'l';
-	$to_format['monthly'] 	= 'jS';
-	$to_format['yearly'] 	= 'jS M';
+	$to_format['monthly'] 	= 'j';
+	$to_format['yearly'] 	= 'j F';
 
-	return billbot_date_format($type, $date, $to_format);
+	return billbot_date_format($type, $date, $to_format, $from_format);
 }
 
 /*
@@ -79,28 +79,30 @@ function renewal_date_for_form($type, $date) {
 
 	e.g Weekly, tuesday would result in 2
 */
-function renewal_date_for_insert($type, $date) {
+function renewal_date_for_insert($type, $date, $from_format = array()) {
 	
 	$to_format['weekly'] 	= 'N';
 	$to_format['monthly'] 	= 'j';
 	$to_format['yearly'] 	= 'z';
 
-	return billbot_date_format($type, $date, $to_format);
+	return billbot_date_format($type, $date, $to_format, $from_format);
 }
 
 /*
 	Sanitise and convert a date to output in the desired format
 */
-function billbot_date_format($type, $date, array $to_format){
-	$from_format['weekly'] 	= 'd-M-Y';
-	$from_format['monthly'] = 'd';
-	$from_format['yearly'] 	= 'z';
+function billbot_date_format($type, $date, array $to_format, $from_format = array()){
+	
+	$from_format_default['weekly'] 	= 'd-M-Y';
+	$from_format_default['monthly'] = 'd';
+	$from_format_default['yearly'] 	= 'j F';
+	$from_format = array_replace($from_format_default, $from_format);
 
 	$interval['weekly'] 	= 'P7D';
 	$interval['monthly'] 	= 'P1M';
 	$interval['yearly'] 	= 'P1Y';
 
-	if($type==='weekly'){
+	if($type === 'weekly'){
 		$days = array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
 		if( !is_numeric($date) ){
 			if( !in_array(strtolower($date), $days)	){
@@ -109,14 +111,27 @@ function billbot_date_format($type, $date, array $to_format){
 			$date = idate('w', strtotime($date));
 		}
 		$date = date('d-M-Y', strtotime($days[strtolower($date)]));
-	} else {
+	} elseif( $type === 'month;y' ) {
 		$date = str_ireplace(range('a', 'z'), '', $date); // Remove any a-z characters from string e.g from '3rd' or '4th'
 	}
 
 	$datetime = DateTime::createFromFormat($from_format[$type], $date);
 
+	if (!$datetime) {
+		return $date;
+	}
+
 	if( $datetime->format('Y-m-d') < date('Y-m-d') ) {
 		$datetime->add( new DateInterval($interval[$type]) );
 	}
 	return $datetime->format($to_format[$type]);
+}
+
+function fieldError($errors, $field)
+{
+	return $errors->has($field) ? $errors->first($field, '<p class="error">:message</p>') : '';
+}
+
+function strBool($bool){
+	return $bool ? 'true' : 'false';
 }

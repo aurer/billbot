@@ -18,7 +18,7 @@
 					Due in {{ $item->due_in }} days
 					@if( $item->send_reminder )
 						<small> - Reminder
-							@if($item->reminder == 0)
+							@if($item->reminder == 0 && $item->due_in < 1)
 								today</small>
 							@else
 								in {{ $item->due_in - $item->reminder }} {{ Str::plural('day', $item->due_in - $item->reminder) }}

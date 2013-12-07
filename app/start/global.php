@@ -106,3 +106,6 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+// Include out custom helpers file
+ require app_path().'/helpers.php';

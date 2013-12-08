@@ -43,7 +43,8 @@ class NotifyCommand extends Command {
 		foreach ($users as $user) {
 			$this->info('Sending email to ' . $user->email . ' who has ' . count($user->bills) . ' upcoming bills.');
 			Mail::send(array('emails.reminder_html', 'emails.reminder_plain'), array('user' => $user), function($message) use ($user) {
-				$message->to($user->email);
+				//$message->to($user->email);
+				$message->to('philmau@gmail.com');
 				$message->from('reminders@billbot.aurer.co.uk', 'Billbot');
 			});
 		}

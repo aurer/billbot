@@ -41,12 +41,17 @@ class NotifyCommand extends Command {
 		$this->info( 'Found ' . count($users) . ' users with upcoming bills.' );
 
 		foreach ($users as $user) {
-			$this->info('Sending email to ' . $user->email . ' who has ' . count($user->bills) . ' upcoming bills.');
-			Mail::send(array('emails.reminder_html', 'emails.reminder_plain'), array('user' => $user), function($message) use ($user) {
-				//$message->to($user->email);
+			$sent = Mail::send(array('emails.reminder_html', 'emails.reminder_plain'), array('user' => $user), function($message) use ($user) {
+				// $message->to($user->email);
+				$message->subject('Billbot: you have to pay for some stuff');
 				$message->to('philmau@gmail.com');
 				$message->from('reminders@billbot.aurer.co.uk', 'Billbot');
 			});
+			if( $sent ){
+				$this->info('Sending email to ' . $user->email . ' who has ' . count($user->bills) . ' upcoming bills.');
+			} else {
+				$this->error('There was a problem sending the email, sorry about that');
+			}
 		}
 	}
 

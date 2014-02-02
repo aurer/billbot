@@ -406,12 +406,6 @@ class Autoschema
 			case 'mysql':
 				return new Drivers\MySQL;
 				
-			case 'pgsql':
-				return new Drivers\Postgres;
-				
-			case 'sqlite':
-				return new Drivers\SQLite;
-				
 			default:
 				throw new \Exception("Autoschema driver {$driver} is not supported.");
 		}

@@ -3,9 +3,16 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
+	"repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/aurer/autoschema"
+        }
+    ],
 	"require": {
 		"laravel/framework": "4.0.*",
-		"zizaco/lessy": "dev-master"
+		"zizaco/lessy": "dev-master",
+		"aurer/autoschema": "*"
 	},
 	"autoload": {
 		"classmap": [
@@ -19,16 +26,21 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"php artisan optimize"
+			"php artisan optimize",
+			"php artisan asset:publish",
+			"php artisan lessy:compile"
 		],
 		"pre-update-cmd": [
 			"php artisan clear-compiled"
 		],
 		"post-update-cmd": [
-			"php artisan optimize"
+			"php artisan optimize",
+			"php artisan lessy:compile"
 		],
 		"post-create-project-cmd": [
-			"php artisan key:generate"
+			"php artisan key:generate",
+			"php artisan asset:publish",
+			"php artisan lessy:compile"
 		]
 	},
 	"config": {

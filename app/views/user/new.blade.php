@@ -38,8 +38,9 @@
 			{{ $errors->has('password_confirm') ? $errors->first('password_confirm', '<p class="error">:message</p>') : '' }}
 		</div>
 		
-		<a class="btn" href="/">Cancel</a>
+		
 		<div class="field submit">	
+			<a class="btn" href="/">Cancel</a>
 			<input type="submit" class="btn" value="Add">
 		</div>
 	{{ Form::close() }}

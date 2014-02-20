@@ -57,14 +57,15 @@ class UserController extends BaseController
 	public function get_confirm()
 	{
 		$user = User::whereActive(false)->whereHash(Input::get('hash'))->first();
+		
 		if($user){
 			$user->hash = '';
 			$user->active = true;
 			$user->save();
-			Auth::login($user->id);
-			return Redirect::home();
+			Auth::loginUsingId($user->id);
+			return Redirect::to('/');
 		}
-		 return Redirect::to('user/thanks')->with('error', 'The activation key you provided was not recognised or has expired.');
+		return Redirect::to('user/thanks')->with('error', 'The activation key you provided was not recognised or has expired.');
 	}
 
 	// Add new user
@@ -81,9 +82,9 @@ class UserController extends BaseController
 		$validation = Validator::make($input, $rules);
 		if( $validation->fails() ){
 			Input::flash();
-			return Redirect::to( Request::path() )->with_errors($validation);
+			return Redirect::to( Request::path() )->withErrors($validation);
 		}
-
+		
 		$hash = Str::random(32);
 		$user = new User;
 		$user->forename = '';
@@ -164,7 +165,7 @@ class UserController extends BaseController
 		$validation = Validator::make($input, $rules);
 		if( $validation->fails() ){
 			Input::flash();
-			return Redirect::to( Request::path() . '?hash=' . Input::get('hash') )->with_errors($validation);
+			return Redirect::to( Request::path() . '?hash=' . Input::get('hash') )->withErrors($validation);
 		}
 		
 		$user = User::whereHash(Input::get('hash'))->first();
@@ -173,7 +174,7 @@ class UserController extends BaseController
 			$user->active = true;
 			$user->password = Hash::make( Input::get('password') );
 			$user->save();
-			Auth::login($user);
+			Auth::loginUsingId($user->id);
 			return Redirect::to('user/reset-complete');
 		}
 		return Redirect::to( Request::path() )->with('error', "Sorry but your reset token is invalid or has expired, please try again.");
@@ -187,8 +188,9 @@ class UserController extends BaseController
 	public function post_remove()
 	{
 		$user = Auth::user();
-		$user->bills->delete();
+		$bills = Bill::whereUserId($user->id);
 		$user->delete();
+		$bills->delete();
 		Auth::logout();
 		return Redirect::to( '/' );
 	}
@@ -196,31 +198,23 @@ class UserController extends BaseController
 
 	// Send a welcome email when joining
 	private function send_welcome_email($user)
-	{
-		if($user){
-			$to = $user->email;
-			$from = "Billbot <billbot@bills.aurer.co.uk>";
-			$subject = "Welcome to Billbot";
-			$message = View::make('emails.user_welcome')->with( array( 'user'=>$user) );
-			$headers  = "From: " . $from . "\r\n"; 
-            $headers .= "Content-type: text/html\r\n";
-			return mail($to, $subject, $message, $headers);
-		}
-		return false;
+	{	
+		$data = array('user' => $user);		
+		return Mail::send('emails.user_welcome', $data, function($message) use ($user){
+			$message->from('billbot@bills.aurer.co.uk', 'Billbot');
+			$message->to($user->email);
+			$message->subject('Welcome to Billbot');
+		});
 	}
 
 	// Send a ressewt password email to user
 	private function send_reset_email($user)
 	{
-		if($user){
-			$to = $user->email;
-			$from = "Billbot <billbot@bills.aurer.co.uk>";
-			$subject = "You requested a password reset";
-			$message = View::make('emails.user_reset')->with( array( 'user'=>$user) );
-			$headers  = "From: " . $from . "\r\n"; 
-            $headers .= "Content-type: text/html\r\n";
-			return mail($to, $subject, $message, $headers);
-		}
-		return false;
+		$data = array('user' => $user);
+		return Mail::send('emails.user_reset', $data, function($message) use ($user){
+			$message->from('billbot@bills.aurer.co.uk', 'Billbot');
+			$message->to($user->email);
+			$message->subject('You requested a password reset');
+		});
 	}
 }

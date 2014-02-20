@@ -7,5 +7,5 @@
 	<p>Hi {{ $user->username }},</p>
 	<p>You can either copy and paste the code below into the registration form:</p>
 	<pre style="font-size:1em;background:#eee;">{{ $user->hash }}</pre>
-	<p>or click following link <a href="{{ URL::base() }}/user/confirm?hash={{ $user->hash }}">{{ URL::base() }}/user/confirm?hash={{ $user->hash }}</a></p>
+	<p>or click following link <a href="{{ Request::root() }}/user/confirm?hash={{ $user->hash }}">{{ Request::root() }}/user/confirm?hash={{ $user->hash }}</a></p>
 @stop

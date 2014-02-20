@@ -19,6 +19,9 @@ App::before(function($request)
 		'login',
 		'user/join',
 		'user/reset*',
+		'user/thanks',
+		'user/confirm*',
+		'autoschema*',
 	);
 
 	// Login action
@@ -113,3 +116,15 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+
+Event::listen('illuminate.query', function($sql, $bindings)
+{
+    foreach ($bindings as $i => $val) {
+        $bindings[$i] = "'$val'";
+    }
+ 
+    $sql = str_replace(['?'], $bindings, $sql);
+ 
+    Log::info($sql);
+}); 

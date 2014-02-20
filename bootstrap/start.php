@@ -28,8 +28,8 @@ $app->redirectIfTrailingSlash();
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('phils-mbp.hub'),
-	'live' => array('li623-89'),
+	'local' => array('localhost'),
+	'live' => array('billbot.aurer.co.uk'),
 
 ));
 
